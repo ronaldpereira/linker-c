@@ -1,0 +1,4 @@
+load R0	IO ;IO é o endereço 254 da memória principal
+load R1 IO ;Carregar de IO pede um valor ao usuário no console
+.extern multiplica ;Função do estilo "call", porém chama uma função de um outro arquivo .a
+store IO R0 ;Printa na tela o resultado da multiplicação

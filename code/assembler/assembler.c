@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 {
 	FILE *input, *output;
 	bool *binary, *datavalue;
-	int pc, i, j, flag, dec, funcexit = 0;
+	int pc, i, j, flag, dec;
 	char *line, *token, *value;
   	lista_t data, label;
 
@@ -33,6 +33,7 @@ int main(int argc, char* argv[])
 		while(fscanf(input, "%[^\n]\n", line) != EOF) // Lê a linha atual e detecta se a linha começa com um comentário ';'
 		{
 			flag = 1;
+
 			if(line[0] != ';')
 				break;
 		}
@@ -43,6 +44,7 @@ int main(int argc, char* argv[])
 		if(flag == 1)
 		{
 			token = strtok(line, " \t");
+
 			if(token[0] == '_') // Identifica um Label
 			{
 				//Salva o label em uma lista de label
@@ -81,6 +83,7 @@ int main(int argc, char* argv[])
 		while(fscanf(input, "%[^\n]\n", line) != EOF) // Lê a linha atual e detecta se a linha começa com um comentário ';'
 		{
 			flag = 1;
+
 			if(line[0] != ';')
 				break;
 		}
@@ -102,55 +105,55 @@ int main(int argc, char* argv[])
 		{
 			token = strtok(line, " \t");
 
+
 			if(token[0] == '_') // Identifica um Label
 			{
 				//Salva o label em uma lista de label
-				token = strtok(NULL, " \t");
+			token = strtok(NULL, " \t");
 				goto _instruction;
 			}
 
 			else if(token[strlen(token)-1] == ':') // Identifica uma pseudoinstrução .data
 			{
-				if(funcexit == 1) // Detecta se já foi lido o exit do input, uma vez que os .data's deverão vir após ele
+				//Salva o .data em um lista value
+			token = strtok(NULL, " \t");
+				if(strcmp(token, ".data") == 0)
 				{
-					//Salva o .data em um lista value
 					token = strtok(NULL, " \t");
-					if(strcmp(token, ".data") == 0)
+					value = strtok(NULL, " \t");
+
+					if(value[0] >= '0' && value[0] <= '9') // É um imediato positivo válido
 					{
-						token = strtok(NULL, " \t");
-						value = strtok(NULL, " \t");
-
-						if(value[0] >= '0' && value[0] <= '9') // É um imediato positivo válido
-						{
-							dec = atoi(value); // Transformação de string para inteiro
-							binaryConversion16bits(datavalue, dec);
-						}
-
-						else if(value[0] == '-' && value[1] >= '0' && value[1] <= '9')
-						{
-							for(j = 0; j < (int)(strlen(value)-1); j++)
-								value[j] = value[j+1]; //Shifta a string em uma posição à esquerda
-							value[j] = '\0';
-							dec = atoi(value);
-							binaryTwoComplement16bits(datavalue, dec);
-						}
-
-						for(j = 0; j < 8; j++)
-							fprintf(output, "%d", datavalue[j]);
-						fprintf(output, ";\n");
-
-						printaPc(output, binary, pc);
-
-						for(i = 8; i < 16; i++)
-							fprintf(output, "%d", datavalue[i]);
-						fprintf(output, ";\n");
+						dec = atoi(value); // Transformação de string para inteiro
+						binaryConversion16bits(datavalue, dec);
 					}
+
+					else if(value[0] == '-' && value[1] >= '0' && value[1] <= '9')
+					{
+						for(j = 0; j < (int)(strlen(value)-1); j++)
+							value[j] = value[j+1]; //Shifta a string em uma posição à esquerda
+						value[j] = '\0';
+						dec = atoi(value);
+						binaryTwoComplement16bits(datavalue, dec);
+					}
+
+					for(j = 0; j < 8; j++)
+						fprintf(output, "%d", datavalue[j]);
+					fprintf(output, ";\n");
+
+					printaPc(output, binary, pc);
+
+					for(i = 8; i < 16; i++)
+						fprintf(output, "%d", datavalue[i]);
+					fprintf(output, ";\n");
 				}
 
 				else // Detecta os marcadores de calls no meio do input
 				{
 					//Salva o .data em um lista value
+					while(token[0] == ' ')
 					token = strtok(NULL, " \t");
+
 					goto _instruction;
 				}
 			}
@@ -163,7 +166,6 @@ int main(int argc, char* argv[])
 					fprintf(output, "00000000;\n");
 					printaPc(output, binary, pc);
 					fprintf(output, "00000000;\n");
-					funcexit = 1; // Determina o fim da leitura do arquivo principal
 				}
 
 				else if(strcmp(token, "loadi") == 0)
@@ -309,7 +311,7 @@ int main(int argc, char* argv[])
 					if(token[1] >= '0' && token[1] <= '7') // É um registrador válido (R0 até R7)
 						detectaRegistrador(output, token, binary, pc);
 
-					token = strtok(NULL, " \t");
+							token = strtok(NULL, " \t");
 					if(token[0] >= '0' && token[0] <= '9') // É um imediato positivo válido
 						detectaImediatoPositivo(output, token, binary);
 
@@ -326,7 +328,7 @@ int main(int argc, char* argv[])
 					if(token[1] >= '0' && token[1] <= '7') // É um registrador válido (R0 até R7)
 						detectaRegistrador(output, token, binary, pc);
 
-					token = strtok(NULL, " \t");
+							token = strtok(NULL, " \t");
 					if(token[0] >= '0' && token[0] <= '9') // É um imediato positivo válido
 						detectaImediatoPositivo(output, token, binary);
 
@@ -469,10 +471,9 @@ int main(int argc, char* argv[])
 				else if(strcmp(token, "call") == 0) // Precisa de label do tipo data
 				{
 					fprintf(output, "10001000;\n");
-					imprime_lista(data.cabeca);
 					token = strtok(NULL, " \t");
 					printaPc(output, binary, pc);
-					detectaMarcador(output, data, token, binary);
+					detectaMarcador(output, label, token, binary);
 				}
 
 				else if(strcmp(token, "loadSp") == 0)
@@ -644,7 +645,7 @@ int main(int argc, char* argv[])
 					if(token[1] >= '0' && token[1] <= '7') // É um registrador válido (R0 até R7)
 						detectaRegistrador(output, token, binary, pc);
 
-					token = strtok(NULL, " \t");
+							token = strtok(NULL, " \t");
 					if(token[0] >= '0' && token[0] <= '9') // É um imediato positivo válido
 						detectaImediatoPositivo(output, token, binary);
 

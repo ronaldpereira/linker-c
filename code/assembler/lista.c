@@ -40,9 +40,3 @@ int procura_elemento(apontador_t pointer, char* text)
 
 	return pointer->registro.Pc;
 }
-
-void imprime_lista(apontador_t pointer)
-{
-	while(pointer != NULL)
-		pointer = pointer->frente;
-}

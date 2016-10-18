@@ -1,11 +1,15 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g -O0
 
-all: assembler.exe
+all: linker.exe librarie
 
-assembler.exe: assembler.o function_assembler.o binary_converter.o lista.o
-	$(CC) $(CFLAGS) assembler.o function_assembler.o binary_converter.o lista.o -o assembler.exe
+linker.exe:
+	$(CC) $(CFLAGS) linker.c -o linker.exe
+	@echo  "\n***IMPORTANT***\nBe sure to include the output, main input and auxiliar inputs file path in the argument of the Linker program\nExample: ./linker.exe ../tst/output.mif ../tst/main.a ../tst/librarie1.a ../tst/librarie2.a [...]\n"
 
 clean:
-	rm *.o assembler.exe
-				@echo "\nThe assembler executable has been sucessfully removed\n"
+	rm linker.exe && cd ../assembler && make clean
+	@echo "\nThe linker executable has been sucessfully removed\n"
+
+librarie:
+	cd ../assembler && make all

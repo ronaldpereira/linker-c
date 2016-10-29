@@ -4,6 +4,7 @@
 #include <string.h>
 #include "lista.h"
 #include "binary_converter.h"
+#include "function_assembler.h"
 
 void aloca_lista(lista_t *lista)
 {
@@ -25,7 +26,6 @@ void adiciona_elemento(lista_t *lista, apontador_t pointer)
 void grava_elemento(apontador_t pointer, char *text, int value, int file)
 {
 	int i;
-	printf("%s %d %d\n", text, value, file);
 
 	for(i = 0; text[i] != '\0'; i++)
 		pointer->registro.Label[i] = text[i];
@@ -43,12 +43,12 @@ int procura_elemento(apontador_t pointer, char* text)
 	return pointer->registro.Pc;
 }
 
-void imprime_lista(apontador_t pointer)
+void atribui_pc(apontador_t pointer, int pc)
 {
 	while(pointer != NULL)
 	{
-		printf("Label:%s/Pc:%d/File:%d-->", pointer->registro.Label, pointer->registro.Pc, pointer->registro.File);
+		pointer->registro.Pc = pc;
 		pointer = pointer->frente;
+		pc += 2;
 	}
-	printf("\n\n");
 }

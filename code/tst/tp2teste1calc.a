@@ -1,2 +1,4 @@
-multiplica: mul R0 R1
-			ret
+multiplica: multiply R0 R1
+			loadi R0 blaew
+            ret
+blaew: .data 2 -2

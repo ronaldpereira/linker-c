@@ -53,7 +53,7 @@ bool *binaryTwoComplement(bool *comp, int dec)
 	return comp;
 }
 
-bool *binaryConversion16bits(bool *bin, int dec)
+void binaryConversion16bits(bool *bin, int dec)
 {
 	int i;
 
@@ -62,11 +62,9 @@ bool *binaryConversion16bits(bool *bin, int dec)
 		bin[i] = dec % 2;
 		dec /= 2;
 	}
-
-	return bin;
 }
 
-bool *binaryTwoComplement16bits(bool *comp, int dec)
+void binaryTwoComplement16bits(bool *comp, int dec)
 {
 	int i, flag = 0;
 
@@ -76,11 +74,7 @@ bool *binaryTwoComplement16bits(bool *comp, int dec)
 		{
 			comp[i] = 1;
 		}
-
-		return comp;
 	}
-
-	dec = dec - 1; //Complemento começa em -1
 
 	binaryConversion16bits(comp, dec);
 
@@ -98,6 +92,4 @@ bool *binaryTwoComplement16bits(bool *comp, int dec)
 				comp[i] = 0;
 		}
 	}
-
-	return comp;
 }

@@ -3,7 +3,7 @@
 
 bool *binaryConversion(bool *bin, int dec);
 bool *binaryTwoComplement(bool *comp, int dec);
-bool *binaryConversion16bits(bool *bin, int dec);
-bool *binaryTwoComplement16bits(bool *comp, int dec);
+void binaryConversion16bits(bool *bin, int dec);
+void binaryTwoComplement16bits(bool *comp, int dec);
 
 #endif

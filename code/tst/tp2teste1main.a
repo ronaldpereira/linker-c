@@ -1,5 +1,7 @@
-load R0 I0
-load R1 IO
+loadi R0 ok
+loadi R1 bla
 .extern multiplica
-store R0 IO
-end
+storei R0 IO
+exit
+bla: .data 2 10
+ok: .data 2 21

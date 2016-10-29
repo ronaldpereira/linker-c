@@ -6,16 +6,13 @@
 #include "binary_converter.h"
 #include "function_assembler.h"
 
-int main(int argc, char* argv[])
+void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 {
-	FILE *input, *output;
 	bool *binary, *datavalue;
 	int pc, i, j, flag, dec;
 	char *line, *token, *value;
   	lista_t data, label;
-
-	input = fopen(argv[1], "r");
-	output = fopen(argv[2], "w+r");
+	FILE *input;
 
 	binary = (bool*) calloc(8,sizeof(bool));
 	datavalue = (bool*) calloc(16,sizeof(bool));
@@ -24,6 +21,7 @@ int main(int argc, char* argv[])
 	value = (char*) malloc(50*sizeof(char));
   	aloca_lista(&data);
   	aloca_lista(&label);
+	input = _main;
 
 	// Primeira Passada -> Ler do arquivo todo e detectar .data's e labels
 	pc = 0;
@@ -54,9 +52,9 @@ int main(int argc, char* argv[])
 				token = strtok(NULL, " \t");
 			}
 
-			else if(token[strlen(token)-1] == ':') // Identifica uma pseudoinstrução .data ou call
+			else if(token[strlen(token)-1] == ':') // Identifica uma pseudoinstrução .data ou .extern
 			{
-				//Salva o .data em um lista value
+				//Salva o .data em um lista data
 				token = strtok(NULL, " \t");
 				line[strlen(line)-1] = '\0'; // Retirando o : do line
 				adiciona_elemento(&data, data.ultima);
@@ -662,6 +660,4 @@ int main(int argc, char* argv[])
 
 	fclose(input);
 	fclose(output);
-
-	return 0;
 }

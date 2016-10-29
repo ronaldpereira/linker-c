@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../assembler/assembler.h"
 
 int main(int argc, char* argv[])
 {
@@ -12,6 +13,8 @@ int main(int argc, char* argv[])
 
 	for (i = 2; i < argc; i++)
 		library[i-2] = fopen(argv[i], "w+r"); // Abertura por meio de uma iteração de todos os arquivos de funções externas (libraries)
+
+	assembler(output, _main, library, (argc-2));
 
 	return 0;
 }

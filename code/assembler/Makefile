@@ -1,10 +1,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g -O0
 
-all: assembler.exe
-
-assembler.exe: assembler.o function_assembler.o binary_converter.o lista.o
-	$(CC) $(CFLAGS) assembler.o function_assembler.o binary_converter.o lista.o -o assembler.exe
+all: assembler.o function_assembler.o binary_converter.o lista.o
 
 assembler.o: assembler.c lista.h binary_converter.h function_assembler.h
 	$(CC) $(CFLAGS) -c assembler.c

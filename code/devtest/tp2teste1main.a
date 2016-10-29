@@ -1,0 +1,7 @@
+loadi R0 IO
+loadi R1 IO
+.extern multiplica
+storei R0 IO
+exit
+ten: .data 2 10
+twentyOne: .data 2 21

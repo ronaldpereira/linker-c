@@ -1,5 +1,0 @@
-load R0 I0
-load R1 IO
-.extern multiplica
-store R0 IO
-end

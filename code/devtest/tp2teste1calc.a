@@ -1,4 +1,3 @@
 multiplica: multiply R0 R1
-			loadi R0 blaew
             ret
-blaew: .data 2 -2
+negTwo: .data 2 -2

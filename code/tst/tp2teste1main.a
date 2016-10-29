@@ -1,7 +1,0 @@
-loadi R0 ok
-loadi R1 bla
-.extern multiplica
-storei R0 IO
-exit
-bla: .data 2 10
-ok: .data 2 21

@@ -1,6 +1,5 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g -O0
-TEST = ../tst/output.mif ../tst/tp2teste1main.a ../tst/tp2teste1calc.a
 
 all: librarie linker.exe
 
@@ -28,6 +27,3 @@ lista.o: ../assembler/lista.c ../assembler/lista.h ../assembler/binary_converter
 clean:
 	rm *.o linker.exe
 	@echo "\nThe linker executable has been sucessfully removed\n"
-
-test:
-	@./linker.exe $(TEST)

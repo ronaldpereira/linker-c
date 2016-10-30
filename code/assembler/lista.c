@@ -35,7 +35,15 @@ void grava_elemento(apontador_t pointer, char *text, int value, int file)
 	pointer->registro.File = file;
 }
 
-int procura_elemento(apontador_t pointer, char* text)
+int procura_elemento(apontador_t pointer, char* text, int file)
+{
+	while(!(strcmp(text, pointer->registro.Label) == 0 && pointer->registro.File == file))
+		pointer = pointer->frente;
+
+	return pointer->registro.Pc;
+}
+
+int procura_extern(apontador_t pointer, char* text)
 {
 	while(strcmp(text, pointer->registro.Label) != 0)
 		pointer = pointer->frente;

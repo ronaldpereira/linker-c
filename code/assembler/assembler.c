@@ -92,7 +92,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 		file++;
 	}
 	atribui_pc(data.cabeca, pc-2); // Atribui aos .datas o pc atual do fim do arquivo
-
+	
 	// Segunda Passada -> Impressão do arquivo
 	fprintf(output, "DEPTH = 256;\nWIDTH = 8;\nADDRESS_RADIX = BIN;\nDATA_RADIX = BIN;\nCONTENT\nBEGIN\n\n");
 
@@ -136,7 +136,6 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 			{
 				token = strtok(line, " \t");
 
-
 				if(token[0] == '_') // Identifica um Label
 				{
 					token = strtok(NULL, " \t");
@@ -151,10 +150,10 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 						pc -= 2; // Decrementa o pc em dois, pois os .datas só serão impressos no fim do arquivo
 						pc_print = 0;
 					}
-					else // Detecta os marcadores de .extern no meio do input
+					else // Detecta os marcadores de .extern no meio da library
 					{
 						line[strlen(line)-1] = '\0'; // Retira o : do fim de line
-						procura_elemento(ext.cabeca, line);
+						// procura_elemento(ext.cabeca, line);
 						goto _instruction;
 					}
 				}
@@ -190,7 +189,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 							detectaImediatoNegativo(output, token, binary);
 
 						else // É qualquer outro tipo de dado (pseudoinstrução .data)
-							detectaMarcador(output, data, token, binary);
+							detectaMarcador(output, data, token, binary, file);
 					}
 
 					else if(strcmp(token, "storei") == 0)
@@ -214,7 +213,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 							detectaImediatoNegativo(output, token, binary);
 
 						else // É qualquer outro tipo de dado (pseudoinstrução .data)
-							detectaMarcador(output, data, token, binary);
+							detectaMarcador(output, data, token, binary, file);
 					}
 
 					else if(strcmp(token, "add") == 0)
@@ -300,7 +299,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 							detectaImediatoPositivo(output, token, binary);
 
 						else // É um label
-							detectaMarcador(output, label, token, binary);
+							detectaMarcador(output, label, token, binary, file);
 					}
 
 					else if(strcmp(token, "jmpz") == 0) // Precisa de label
@@ -317,7 +316,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 							detectaImediatoPositivo(output, token, binary);
 
 						else // É um label
-							detectaMarcador(output, label, token, binary);
+							detectaMarcador(output, label, token, binary, file);
 					}
 
 					else if(strcmp(token, "jmpn") == 0) // Precisa de label
@@ -334,7 +333,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 							detectaImediatoPositivo(output, token, binary);
 
 						else // É um label
-							detectaMarcador(output, label, token, binary);
+							detectaMarcador(output, label, token, binary, file);
 					}
 
 					else if(strcmp(token, "move") == 0)
@@ -409,7 +408,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 							detectaImediatoNegativo(output, token, binary);
 
 						else // É qualquer outro tipo de dado (pseudoinstrução .data)
-							detectaMarcador(output, data, token, binary);
+							detectaMarcador(output, data, token, binary, file);
 					}
 
 					else if(strcmp(token, "clear") == 0)
@@ -443,7 +442,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 							detectaImediatoNegativo(output, token, binary);
 
 						else // É qualquer outro tipo de dado (pseudoinstrução .data)
-							detectaMarcador(output, data, token, binary);
+							detectaMarcador(output, data, token, binary, file);
 					}
 
 					else if(strcmp(token, "slt") == 0)
@@ -474,7 +473,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 						fprintf(output, "10001000;\n");
 						token = strtok(NULL, " \t");
 						printaPc(output, binary, pc);
-						detectaMarcador(output, label, token, binary);
+						detectaMarcador(output, label, token, binary, file);
 					}
 
 					else if(strcmp(token, "loadSp") == 0)
@@ -498,7 +497,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 							detectaImediatoNegativo(output, token, binary);
 
 						else // É qualquer outro tipo de dado (pseudoinstrução .data)
-							detectaMarcador(output, data, token, binary);
+							detectaMarcador(output, data, token, binary, file);
 					}
 
 					else if(strcmp(token, "storeSp") == 0)
@@ -522,7 +521,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 							detectaImediatoNegativo(output, token, binary);
 
 						else // É qualquer outro tipo de dado (pseudoinstrução .data)
-							detectaMarcador(output, data, token, binary);
+							detectaMarcador(output, data, token, binary, file);
 					}
 
 					else if(strcmp(token, "ret") == 0)
@@ -548,7 +547,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 							detectaImediatoNegativo(output, token, binary);
 
 						else // É qualquer outro tipo de dado (pseudoinstrução .data)
-							detectaMarcador(output, data, token, binary);
+							detectaMarcador(output, data, token, binary, file);
 					}
 
 					else if(strcmp(token, "storeRa") == 0)
@@ -567,7 +566,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 							detectaImediatoNegativo(output, token, binary);
 
 						else // É qualquer outro tipo de dado (pseudoinstrução .data)
-							detectaMarcador(output, data, token, binary);
+							detectaMarcador(output, data, token, binary, file);
 					}
 
 					else if(strcmp(token, "addi") == 0)
@@ -588,7 +587,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 							detectaImediatoNegativo(output, token, binary);
 
 						else // É qualquer outro tipo de dado (pseudoinstrução .data)
-							detectaMarcador(output, data, token, binary);
+							detectaMarcador(output, data, token, binary, file);
 					}
 
 					else if(strcmp(token, "sgt") == 0)
@@ -651,7 +650,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 							detectaImediatoPositivo(output, token, binary);
 
 						else // É um label
-							detectaMarcador(output, label, token, binary);
+							detectaMarcador(output, label, token, binary, file);
 					}
 
 					else if(strcmp((token), ".extern") == 0) // Trata como se fosse uma função call, porem com o novo pc do arquivo
@@ -659,7 +658,8 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 						fprintf(output, "10001000;\n");
 						token = strtok(NULL, " \t");
 						printaPc(output, binary, pc);
-						detectaMarcador(output, ext, token, binary);
+						printf("%d\n", file);
+						detectaExtern(output, ext, token, binary);
 					}
 				}
 			}

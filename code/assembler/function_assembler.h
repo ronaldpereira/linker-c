@@ -8,7 +8,8 @@ void detectaRegistrador(FILE *output, char *token, bool *binary, int pc);
 void detectaRegistradorSource(FILE *output, char *token, bool *binary);
 void detectaImediatoNegativo(FILE *output, char *token, bool *binary);
 void detectaImediatoPositivo(FILE *output, char *token, bool *binary);
-void detectaMarcador(FILE *output, lista_t lista, char *token, bool *binary);
+void detectaMarcador(FILE *output, lista_t lista, char *token, bool *binary, int file);
+void detectaExtern(FILE *output, lista_t lista, char *token, bool *binary);
 void printaPc(FILE *output, bool *binary, int pc);
 
 #endif

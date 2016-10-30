@@ -27,7 +27,8 @@ typedef struct lista_t
 void aloca_lista(lista_t *list);
 void adiciona_elemento(lista_t *list, apontador_t pointer);
 void grava_elemento(apontador_t pointer, char *text, int value, int file);
-int procura_elemento(apontador_t pointer, char* text);
+int procura_elemento(apontador_t pointer, char* text, int file);
+int procura_extern(apontador_t pointer, char* text);
 void atribui_pc(apontador_t pointer, int pc);
 
 #endif

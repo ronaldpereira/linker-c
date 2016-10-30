@@ -1,3 +1,4 @@
 multiplica: multiply R0 R1
+			loadi R5 negTwo
             ret
 negTwo: .data 2 -2

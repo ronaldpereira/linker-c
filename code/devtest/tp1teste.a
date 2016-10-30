@@ -1,0 +1,27 @@
+loadi R0 IO
+call _fact
+loadi R0 vZero
+storei R0 IO
+exit
+_fact:       moveSp -4
+storeRa 0
+storeSp R0 2
+clear R1
+addi R1 1
+slt R2 R0 R1
+jmpz R2 _L1
+loadi R3 vZero
+addi R3 1
+storei R3 vZero
+moveSp 4
+ret
+_L1:         addi R0 -1
+call _fact
+loadSp R0 2
+loadRa 0
+moveSp 4
+loadi R3 vZero
+multiply R3 R0
+storei R3 vZero
+ret
+vZero:      .data 2 0

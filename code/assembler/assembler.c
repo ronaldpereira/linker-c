@@ -92,7 +92,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 		file++;
 	}
 	atribui_pc(data.cabeca, pc-2); // Atribui aos .datas o pc atual do fim do arquivo
-	
+
 	// Segunda Passada -> Impressão do arquivo
 	fprintf(output, "DEPTH = 256;\nWIDTH = 8;\nADDRESS_RADIX = BIN;\nDATA_RADIX = BIN;\nCONTENT\nBEGIN\n\n");
 
@@ -658,7 +658,6 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 						fprintf(output, "10001000;\n");
 						token = strtok(NULL, " \t");
 						printaPc(output, binary, pc);
-						printf("%d\n", file);
 						detectaExtern(output, ext, token, binary);
 					}
 				}

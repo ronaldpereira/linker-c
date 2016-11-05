@@ -1,0 +1,75 @@
+
+_OP0:   storei R3 0
+        storei R4 0
+        storei R5 0
+        subtract R4 R0
+        add R4 R1
+        jmpp R4 _R1sR0
+        jmpn R4 _R0sR1
+_R0sR1: subtract R3 R0
+        add R3 R2
+       	jmpp  R3 _R2s
+        jmpn R3 _R0s
+_R1sR0: subtract R3 R1
+        add R3 R2
+        jmpp R3 _R2s
+        jmpn R3 _R1s
+_R0s:   move R5 R0
+        jump _pos
+_R1s:   move R5 R1
+        jump _pos
+_R2s:   move R5 R2
+        jump _pos
+_pos:   clear R3
+        clear R4
+        storei R5 IO	; output R5
+       	ret
+
+_OP1:   storei R3 0
+        storei R4 0
+        storei R5 0
+        subtract R4 R0
+        add R4 R1
+        jmpp R4 _OP1R0sR1
+        jmpn R4 _OP1R1sR0
+_OP1R0sR1: subtract R3 R0
+        add R3 R2
+       	jmpp  R3 _OP1R0s
+        jmpn R3 _OP1R2s
+_OP1R1sR0: subtract R3 R1
+        add R3 R2
+        jmpp R3 _OP1R1s
+        jmpn R3 _OP1R2s
+_OP1R0s:   move R5 R0
+        jump _OP1pos
+_OP1R1s:   move R5 R1
+        jump _OP1pos
+_OP1R2s:   move R5 R2
+        jump _OP1pos
+_OP1pos:clear R3
+        clear R4
+        storei R5 IO	; output R5
+       	ret
+
+_OP2: storei R5 0
+      add R5 R0
+      add R5 R1
+      add R5 R2
+      storei R5 IO
+      ret
+
+_OP3: storei R5 0
+      add R5 R0
+      multiply R5 R1
+      multiply R5 R2
+      storei R5 IO
+      ret
+
+_OP4: storei R5 0
+      storei R4 3
+      add R5 R0
+      multiply R5 R1
+      multiply R5 R2
+      divide R5 R4
+      storei R5 IO
+      ret

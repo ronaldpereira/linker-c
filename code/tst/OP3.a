@@ -1,0 +1,6 @@
+_OP3: storei R5 0
+      add R5 R0
+      multiply R5 R1
+      multiply R5 R2
+      storei R5 IO
+      ret

@@ -1,4 +1,4 @@
-OP3: storei R5 0
+OP3: clear R5
       add R5 R0
       add R5 R1
       add R5 R2

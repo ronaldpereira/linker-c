@@ -1,6 +1,6 @@
-OP1:   storei R3 0
-        storei R4 0
-        storei R5 0
+OP1:   clear R3
+        clear R4
+        clear R5
         subtract R4 R0
         add R4 R1
         jmpp R4 _R1sR0 ; jump to the label

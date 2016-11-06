@@ -1,8 +1,8 @@
 OP5: clear R5
       loadi R4 3
       add R5 R0
-      multiply R5 R1
-      multiply R5 R2
+      add R5 R1
+      add R5 R2
       divide R5 R4
       storei R5 IO ; output R5
       ret ; return to main

@@ -2,7 +2,7 @@ loadi R0 IO ; A
 loadi R1 IO ; B
 loadi R2 IO ; C
 loadi R7 IO ; Operation
-loadi R6 -1 ; R6 <- -1
+loadi R6 neg ; R6 <- -1
 subtract R7 R6 ; R7 - 1
 jmpz R7 _OP1 ; se R7 == 0, entao OP == 1
 subtract R7 R6 ; R7 - 1
@@ -24,3 +24,4 @@ jump _end ; jumps to the end of program
 _OP5: .extern OP5
 jump _end ; jumps to the end of program
 _end: exit
+neg: .data 2 -1 ; .data to const -1

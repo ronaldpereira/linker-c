@@ -669,7 +669,6 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 	}
 		// Impressão dos .datas
 		pointer = data.cabeca->frente;
-		fseek(output, -13, SEEK_CUR); // Volta ao inicio da linha atual do output para imprimir o primeiro valor do .data
 		while(pointer != NULL)
 		{
 			dec = pointer->registro.Value;
@@ -699,8 +698,6 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 			pc ++;
 			pointer = pointer->frente;
 		}
-
-		fseek(output, 0, SEEK_END); // Vai para o final do arquivo para imprimir a finalização da escrita
 
 		// Finalização da escrita
 		binaryConversion(binary, pc);

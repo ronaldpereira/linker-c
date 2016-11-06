@@ -653,7 +653,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 							detectaMarcador(output, label, token, binary, file);
 					}
 
-					else if(strcmp((token), ".extern") == 0) // Trata como se fosse uma função call, porem com o novo pc do arquivo
+					else if(strcmp(token, ".extern") == 0) // Trata como se fosse uma função call, porem com o novo pc do arquivo
 					{
 						fprintf(output, "10001000;\n");
 						token = strtok(NULL, " \t");

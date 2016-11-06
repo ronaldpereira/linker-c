@@ -33,7 +33,7 @@ O \textit{Ligador} ao final de todo o processo é capaz de gerar um único arqui
 \subsection{Apresentação do Problema}
 Como enunciado anteriormente na Introdução, o problema consiste na implementação de \textit{Ligador} simples. Nesse contexto, notabiliza-se o maior problema o remanejamento do endereço das funções, ou seja, o recalculo do do endereço de memória no qual a função está depois que unem-se vários módulos ao executável principal.
 
-\subsection{Solução Generalizada do Problema}
+\subsection{Decisões para Implementação}
 Para a construção do ligador deve-se pontuar, primariamente, algumas condições simples para que o programa seja capaz de gerar um executável final sem que exista qualquer tipo de comportamento inesperado. Tais condições enunciadas são:
 
 \begin{enumerate}
@@ -43,9 +43,36 @@ Para a construção do ligador deve-se pontuar, primariamente, algumas condiçõ
   \item Labels devem começar com um \textit{underline}, tanto para jumps ou calls, a fim de padronizar de uma maneira simples a chamada de procedimentos
 \end{enumerate}
 
+Dito tal o \textit{Ligador} é implementado primariamente por meio da criação de um novo arquivo, o qual é elaborado a partir de vários acessos a um \textit{array} com ponteiros para os arquivos dos módulos utilizados. A execução do \textit{assembler} remete fortemente ao trabalho prático anterior, só que agora há uma execução iterativa para cada módulo incluído.
 
-\subsection{Implementação Detalhes}
+Na implementação realizada o \textit{Program Counter} da \textit{main} tem início no valor zero e os módulos seguem logo abaixo continuando-se a contagem do \textit{PC}. Nessa implementação uma ressalva muito importante que deve ser feita é que todos os \textit{.data} são impressos ao final de toda a execução da tradução. Esse procedimento só pode ser feito quando todos os \textit{.data} são salvos em uma lista encadeada, a qual ao final da primeira passada, grava os respectivos \textit{Program Counter} de todos esses \textit{.data}.
 
+O procedimento acima pode ser um pouco de difícil compreensão ao leitor,contudo o esquema abaixo auxília a compreender entender a configuração final do arquivo.
+
+\noindent==========================================
+
+\noindent\textit{0 : começo da main\\
+1::30 codigo da main\\
+31 : finalização do main\\
+32 : começo do módulo 1\\
+33::48 código do módulo 1\\
+49 : finalização do módulo 1\\
+50 : inicio do .data da main\\
+51 : finalização do .data da main\\
+52 : início do .data do módulo 1\\
+53 : finalização do .data do módulo 1\\
+END\\
+==========================================}
+
+Caso seja do interesse do leitor utilizar o \textit{Ligador}, é necessário ir a pasta \textit{linker} e executar primeiramente o comando \textit{make all}. Após isso é possível utilizar o programa executando o comando:
+
+\begin{center} \textit{/linker.exe output.mif main.a modulo1.a modulo2.a [...] modulon.a} \end{center}
+
+\subsection{Detalhes de Implementação do Extern}
+
+Cada \textit{label} e cada \textit{.data} é atribuído um ID do arquivo de entrada que ele se encontra, o que faz acessos a esses procedimentos somente possível por cima dos procedimentos \textit{.extern}. Isso é realizado por motivos de segurança, a fim de evitar acessos inesperados a tais procedimentos.
+
+Os \textit{.externs} possuem uma mecânica de funcionamento de maneira similar aos \textit{label} e aos \textit{.data}. Na primeira passada são salvos na lista \textit{"ext"} o endereço da memória de instruções e o endereço destino do \textit{label} e do \textit{.extern}. Esse procedimento é útil, pois em cada chamada \textit{.extern}, basta substituir a função por uma instrução \textit{call} para o endereço salvo na lista. Portanto, todos os \textit{.extern} ao final da execução são traduzidos para uma instrução \textit{call}, já que endereço de destino já foi previamente calculado para o novo arquivo.
 \section{Casos de Teste}
 
 \section{Conclusão}

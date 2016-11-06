@@ -3,15 +3,15 @@ loadi R1 IO ; B
 loadi R2 IO ; C
 loadi R7 IO ; Operation
 loadi R6 neg ; R6 <- -1
-subtract R7 R6 ; R7 - 1
+add R7 R6 ; R7 - 1
 jmpz R7 _OP1 ; se R7 == 0, entao OP == 1
-subtract R7 R6 ; R7 - 1
+add R7 R6 ; R7 - 1
 jmpz R7 _OP2 ; se R7 == 0, entao OP == 2
-subtract R7 R6 ; R7 - 1
+add R7 R6 ; R7 - 1
 jmpz R7 _OP3 ; se R7 == 0, entao OP == 3
-subtract R7 R6 ; R7 - 1
+add R7 R6 ; R7 - 1
 jmpz R7 _OP4 ; se R7 == 0, entao OP == 4
-subtract R7 R6 ; R7 - 1
+add R7 R6 ; R7 - 1
 jmpz R7 _OP5 ; se R7 == 0, entao OP == 5
 _OP1: .extern OP1
 jump _end ; jumps to the end of program

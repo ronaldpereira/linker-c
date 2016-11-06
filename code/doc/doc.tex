@@ -44,9 +44,7 @@ Para a construção do ligador deve-se pontuar, primariamente, algumas condiçõ
 \end{enumerate}
 
 
-\subsection{Implementação das Passagens}
-Na primeira passagem há a criação de duas listas encadeadas, as quais são as duas tabelas de símbolos. Uma dessas tabelas contem todos os \textit{.data}, que serão prontamente substituidos e a outra tabela contem referências para os PC (\textit{program counter}) de labels encontradas na primeira passagem do \textit{Assembler}. Escolheram-se listas encadeadas para a estruturação da Tabela de Símbolos, pois não existem problemas eventuais na procura de elementos da lista em \textit{O(n)}, já que o número de \textit{labels} e \textit{.data} não prejudica severamente a performance do código.
-Depois disso se realiza o processo corriqueiro de decodificação por meio de uma série de \textit{if, else if e else} para a leitura da instrução e a tradução do valores de eventuais registradores para os respectivos valores binários. Após todo esse processo se encontra o arquivo executável gerado.
+\subsection{Implementação Detalhes}
 
 \section{Casos de Teste}
 

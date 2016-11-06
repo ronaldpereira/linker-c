@@ -73,9 +73,29 @@ Caso seja do interesse do leitor utilizar o \textit{Ligador}, é necessário ir 
 Cada \textit{label} e cada \textit{.data} é atribuído um ID do arquivo de entrada que ele se encontra, o que faz acessos a esses procedimentos somente possível por cima dos procedimentos \textit{.extern}. Isso é realizado por motivos de segurança, a fim de evitar acessos inesperados a tais procedimentos.
 
 Os \textit{.externs} possuem uma mecânica de funcionamento de maneira similar aos \textit{label} e aos \textit{.data}. Na primeira passada são salvos na lista \textit{"ext"} o endereço da memória de instruções e o endereço destino do \textit{label} e do \textit{.extern}. Esse procedimento é útil, pois em cada chamada \textit{.extern}, basta substituir a função por uma instrução \textit{call} para o endereço salvo na lista. Portanto, todos os \textit{.extern} ao final da execução são traduzidos para uma instrução \textit{call}, já que endereço de destino já foi previamente calculado para o novo arquivo.
+
+
 \section{Casos de Teste}
 
-\section{Conclusão}
+Abaixo consta a imagem dos dois primeiros casos de teste para as diversas operações descritas nas especificações do trabalho. As imagens todas são referentes a simulações feitas na máquina \textit{Wombat2}.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.32]{1.png}
+\caption{Imagem do programa para a operação 1}
+\label{fig:ibagem1}
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[scale=0.32]{2.png}
+\caption{Imagem do programa para a operação 2}
+\label{fig:ibagem2}
+\end{figure}
+
+
+\newpage\section{Conclusão}
 
 Por meio desse trabalho foi possível expandir ainda mais o conhecimento sobre a geração de código máquina, a partir de um código \textit{Assembly}. Foi gerado ao final desse trabalho, um \textit{Ligador} completamente funcional capaz de gerar eficientemente um código executável para a máquina \textit{Wombat2}, utilizando para isso, diversos procedimentos de vários módulos simultaneamente.
 

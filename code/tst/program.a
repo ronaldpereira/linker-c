@@ -1,4 +1,4 @@
-loadi R0 IO ; OP
+loadi R0 IO
 loadi R1 IO ; A
 loadi R2 IO ; B
 loadi R3 IO ; C

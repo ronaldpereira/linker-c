@@ -700,6 +700,8 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 			pointer = pointer->frente;
 		}
 
+		fseek(output, 0, SEEK_END); // Vai para o final do arquivo para imprimir a finalização da escrita
+
 		// Finalização da escrita
 		binaryConversion(binary, pc);
 		fprintf(output, "[");

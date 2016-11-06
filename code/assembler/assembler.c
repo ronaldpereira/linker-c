@@ -114,6 +114,7 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 			while(fscanf(input, "%[^\n]\n", line) != EOF) // Lê a linha atual e detecta se a linha começa com um comentário ';'
 			{
 				flag = 1;
+				printf("%s\n", line);
 
 				if(line[0] != ';')
 					break;
@@ -682,7 +683,8 @@ void assembler(FILE *output, FILE *_main, FILE **library, int numLib)
 				binaryTwoComplement16bits(datavalue, dec);
 			}
 
-			printaPc(output, binary, pc-1);
+			if(pointer != data.cabeca->frente)
+				printaPc(output, binary, pc-1);
 			pc++;
 
 			for(j = 0; j < 8; j++)

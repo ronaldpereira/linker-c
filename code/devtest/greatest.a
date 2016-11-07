@@ -1,0 +1,11 @@
+greatest:	sgt R6 R1 R2  ; pc = 62
+			jmpz R6 72  ; //R1 <= R2
+			sgt R6 R1 R3
+			jmpz R6 80 ; //R1 > R2 e R1 <= R3 !!!
+			jmpp R6 82 ; // R1 > R2 e R3 !!!
+			sgt R6 R2 R3
+			jmpz R6 80 ; // R2 > R1 e R2 <= R3 !!
+			move R1 R2
+			ret
+			move R1 R3
+			ret 	; 		pc = 82

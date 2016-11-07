@@ -1,0 +1,5 @@
+avg: loadc R6 3	; pc = 118
+	  add R1 R2
+	  add R1 R3
+	  divide R1 R6
+	  ret	; pc = 126

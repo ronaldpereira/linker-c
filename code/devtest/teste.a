@@ -1,0 +1,31 @@
+loadi R0 IO ; // OP
+loadi R1 IO ; // A
+loadi R2 IO ; // B
+loadi R3 IO ; // C
+loadc R5 1 ; R5 = 1
+seq R4 R0 R5
+jmpp R4 _maior ; OP = 1
+addi R5 1 ; R5 = 2
+seq R4 R0 R5
+jmpp R4 _menor ; OP = 2
+addi R5 1 ; R5 = 3
+seq R4 R0 R5
+jmpp R4 _soma ; OP = 3
+addi R5 1 ; R5 = 4
+seq R4 R0 R5
+jmpp R4 _prod ; OP = 4
+addi R5 1 ; R5 = 5
+seq R4 R0 R5
+jmpp R4 _med ; OP = 5
+_maior: .extern greatest ; pc = 38
+		jump _fim ;
+_menor: .extern minor ; pc = 44
+		jump _fim ;
+_soma: .extern sum ; pc = 50
+		jump _fim ;
+_prod: .extern prod ; pc = 56
+		jump _fim ;
+_med: .extern avg ; pc = 62
+	    jump _fim ;
+_fim: storei R1 IO ; Print
+	  exit ;

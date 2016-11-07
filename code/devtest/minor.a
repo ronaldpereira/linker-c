@@ -1,0 +1,11 @@
+minor: slt R6 R1 R2  ; pc = 84
+		jmpz R6 94 ; R2 < R1
+		slt R6 R1 R3
+		jmpz R6 102 ;  R1 < R2 e R3 < R1
+		jmpp R6 104 ;  R1 < R2 e R3
+		slt R6 R2 R3
+		jmpz R6 102 ; R2 < R1 e R3 < R2
+		move R1 R2 ; store R2 R1
+		ret
+		move R1 R3 ; store R3 R1
+		ret		; pc = 104

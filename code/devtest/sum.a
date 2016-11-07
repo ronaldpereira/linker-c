@@ -1,0 +1,3 @@
+sum:	add R1 R2 ; pc = 106
+		add R1 R3
+		ret ; pc = 110

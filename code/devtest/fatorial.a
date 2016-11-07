@@ -1,0 +1,10 @@
+	loadi R0 IO ;
+	loadc R1 1
+	loadc R2 2
+	move R3 R0
+	sgt R4 R0 R1
+	jmpz R4 _end ;
+_callfat: .extern fato ;
+_end:	storei R0 IO ;
+        clear R0 ;
+        exit ;

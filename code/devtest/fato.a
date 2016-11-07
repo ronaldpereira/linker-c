@@ -1,0 +1,7 @@
+fato:	subtract R3 R1
+		seq R4 R3 R1
+		jmpp R4 _else ;
+		jump _if ;
+		_if: multiply R0 R3
+			jump 20 ;
+		_else: ret ;
